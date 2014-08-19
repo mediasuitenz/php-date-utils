@@ -1,0 +1,26 @@
+{
+    "name": "mediasuitenz/php-date-utils",
+    "description": "Tools for working with date strings",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Richard Walker",
+            "email": "richie@mediasuite.co.nz"
+        },
+        {
+            "name": "Lewis Christie",
+            "email": "lewis@mediasuite.co.nz"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "PhpDateUtils": "src/"
+        }
+    }
+}
