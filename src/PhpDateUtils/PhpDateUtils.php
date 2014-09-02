@@ -67,10 +67,10 @@ class PhpDateUtils {
      * timezoned, locally formatted date string.
      * Uses LOCAL_DATE_FORMAT and LOCAL_TIME_ZONE env vars to determine locally.
      */
-    public static function utcMysqlDateStringToLocalDateString($dateString) {
+    public static function utcMysqlDateStringToLocalDateString($dateString, $options = []) {
         $utcDateTime   = self::mysqlUtcDateStringToDateTime($dateString);
         $localDateTime = self::utcDateTimeToLocalDateTime($utcDateTime);
-        return self::dateTimeToLocalDateString($localDateTime);
+        return self::dateTimeToLocalDateString($localDateTime, $options);
     }
 
     /**

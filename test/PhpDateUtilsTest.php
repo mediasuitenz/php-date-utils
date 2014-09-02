@@ -38,6 +38,10 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertNotSame($utcDateString, $localDateString);
 
+        $options = ['format' => 'Y-m-d H:i:s'];
+        $dateString = PhpDateUtils::utcMysqlDateStringToLocalDateString($utcDateString, $options);
+        $this->assertRegExp(self::MYSQL_REG_EXP_DATE_STRING, $dateString);
+
     }
 
     function testLocalDateStringToUtcMysqlDateString() {
