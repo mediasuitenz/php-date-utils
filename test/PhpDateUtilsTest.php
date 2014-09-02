@@ -16,7 +16,7 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
     }
 
     function testNewLocalDateString() {
-        putenv('LOCAL_DATE_FORMAT=d m Y h');
+        putenv('LOCAL_DATE_FORMAT=d m Y H');
         putenv('LOCAL_TIME_ZONE=UTC');
 
         $newLocalDateString = PhpDateUtils::newLocalDateString();
