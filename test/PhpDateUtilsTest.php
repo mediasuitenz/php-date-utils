@@ -9,13 +9,13 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
     /**
      * Assert returned string is a valid mysql date string
      */
-    public function testNewUtcMysqlDateString() {
+    function testNewUtcMysqlDateString() {
         $newDateString = PhpDateUtils::newUtcMysqlDateString();
         $this->assertNotNull($newDateString);
         $this->assertRegExp(self::MYSQL_REG_EXP_DATE_STRING, $newDateString);
     }
 
-    public function testNewLocalDateString() {
+    function testNewLocalDateString() {
         putenv('LOCAL_DATE_FORMAT=d m Y h');
         putenv('LOCAL_TIME_ZONE=UTC');
 
@@ -28,7 +28,7 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotSame($newLocalDateString, $newNzTimeString);
     }
 
-    public function testUtcMysqlDateStringToLocalDateString() {
+    function testUtcMysqlDateStringToLocalDateString() {
         putenv('LOCAL_TIME_ZONE=Pacific/Auckland');
         putenv('LOCAL_DATE_FORMAT=Y m d H i');
 
@@ -40,7 +40,7 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testLocalDateStringToUtcMysqlDateString() {
+    function testLocalDateStringToUtcMysqlDateString() {
         putenv('LOCAL_TIME_ZONE=Pacific/Auckland');
         putenv('LOCAL_DATE_FORMAT=Y m d H i');
 
