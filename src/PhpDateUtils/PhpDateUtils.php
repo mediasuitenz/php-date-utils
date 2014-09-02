@@ -39,8 +39,12 @@ class PhpDateUtils {
         return $dateTime->format('Y-m-d H:i:s');
     }
 
-    public static function dateTimeToLocalDateString(\DateTime $dateTime) {
-        return $dateTime->format(getenv('LOCAL_DATE_FORMAT'));
+    public static function dateTimeToLocalDateString(\DateTime $dateTime, $options = []) {
+        $defaultOptions = [
+            'format' => getenv('LOCAL_DATE_FORMAT'),
+        ];
+        $options = array_merge($defaultOptions, $options);
+        return $dateTime->format($options['format']);
     }
 
     /**

@@ -51,4 +51,15 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
         $this->assertRegExp(self::MYSQL_REG_EXP_DATE_STRING, $utcDateString);
     }
 
+    function testDateTimeToLocalDateString() {
+        putenv('LOCAL_DATE_FORMAT=Y m d H i');
+        date_default_timezone_set('Pacific/Auckland');
+
+        $dateTime = new \DateTime('2014-01-01 14:12:00');
+        $this->assertSame('2014 01 01 14 12', PhpDateUtils::dateTimeToLocalDateString($dateTime));
+
+        $options = ['format' => 'd / m / Y H / i / s'];
+        $this->assertSame('01 / 01 / 2014 14 / 12 / 00', PhpDateUtils::dateTimeToLocalDateString($dateTime, $options));
+    }
+
 }
