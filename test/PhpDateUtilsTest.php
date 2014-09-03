@@ -63,4 +63,16 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('01 / 01 / 2014 14 / 12 / 00', $utils->dateTimeToLocalDateString($dateTime, $options));
     }
 
+    function testUtcMysqlDateStringToLocalDateTime() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $localDateString = '2014 01 01 14 12';
+        $expectedLocalDate = new \DateTime($localDateString);
+
+        $utcDateString = $utils->localDateStringToUtcMysqlDateString($localDateString);
+        $actualLocalDate = $utils->utcMysqlDateStringToLocalDateTime($utcDateString);
+
+        $this->assertEquals($actualLocalDate->getTimestamp(), $expectedLocalDate->getTimestamp());
+    }
+
 }
