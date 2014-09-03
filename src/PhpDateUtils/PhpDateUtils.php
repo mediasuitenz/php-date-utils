@@ -63,8 +63,8 @@ class PhpDateUtils {
     }
 
     /**
-     * Creates a new date string formatted and timezoned according to env vars
-     * LOCAL_DATE_FORMAT and LOCAL_TIME_ZONE
+     * Creates a new date string formatted and timezoned according to
+     * $localFormat and $localTimeZone
      */
     public function newLocalDateString() {
         return self::dateTimeToLocalDateString(self::newLocalDateTime());
@@ -73,7 +73,7 @@ class PhpDateUtils {
     /**
      * Takes a UTC MySQL formatted date string and converts it to a locally
      * timezoned, locally formatted date string.
-     * Uses LOCAL_DATE_FORMAT and LOCAL_TIME_ZONE env vars to determine locally.
+     * Uses $localFormat and $localTimeZone to determine locally.
      */
     public function utcMysqlDateStringToLocalDateString($dateString, $options = []) {
         $utcDateTime   = self::mysqlUtcDateStringToDateTime($dateString);
@@ -84,7 +84,7 @@ class PhpDateUtils {
     /**
      * Takes a locally formatted and locally timezoned date string and converts it
      * to a MySQL formatted UTC timezoned date string.
-     * Uses LOCAL_DATE_FORMAT and LOCAL_TIME_ZONE env vars to determine locally.
+     * Uses $localFormat and $localTimeZone to determine locally.
      */
     public function localDateStringToUtcMysqlDateString($dateString) {
         $localDateTime = self::localDateStringToDateTime($dateString);
