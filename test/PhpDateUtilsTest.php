@@ -41,7 +41,6 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
         $options = ['format' => 'Y-m-d H:i:s'];
         $dateString = $utils->utcMysqlDateStringToLocalDateString($utcDateString, $options);
         $this->assertRegExp(self::MYSQL_REG_EXP_DATE_STRING, $dateString);
-
     }
 
     function testLocalDateStringToUtcMysqlDateString() {
