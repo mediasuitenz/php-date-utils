@@ -8,8 +8,11 @@ require src/PhpDateUtils/PhpDateUtils.php
 ## usage
 
 ```php
-\PhpDateUtils\PhpDateUtils::newUtcMysqlDateString()
-\PhpDateUtils\PhpDateUtils::newLocalDateString()
-\PhpDateUtils\PhpDateUtils::utcMysqlDateStringToLocalDateString(:string)
-\PhpDateUtils\PhpDateUtils::localDateStringToUtcMysqlDateString(:string)
+$dateUtils = new PhpDateUtils('Your Local Timezone', 'Your Default Date Format');
+
+$dateUtils->newUtcMysqlDateString();
+$dateUtils->newLocalDateString();
+$dateUtils->utcMysqlDateStringToLocalDateString(:string);
+$dateUtils->utcMysqlDateStringToLocalDateTime(:string);
+$dateUtils->localDateStringToUtcMysqlDateString(:string);
 ```
