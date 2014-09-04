@@ -37,15 +37,21 @@ class PhpDateUtils {
         return $localDateTime;
     }
 
+    private function createDateTime($format, $dateString, $timezone) {
+        $dateTime = DateTime::createFromFormat($format, $dateString, $timezone);
+        if (!$dateTime) throw new InvalidArgumentException('Invalid Date string input');
+        return $dateTime;
+    }
+
     public function mysqlUtcDateStringToDateTime($dateString) {
         $timezone = new DateTimeZone(self::DB_TIMEZONE);
-        return DateTime::createFromFormat(self::MYSQL_FORMAT, $dateString, $timezone);
+        return $this->createDateTime(self::MYSQL_FORMAT, $dateString, $timezone);
     }
 
     public function localDateStringToDateTime($dateString) {
         $timezone = new DateTimeZone($this->localTimeZone);
         $format = $this->localFormat;
-        return DateTime::createFromFormat($format, $dateString, $timezone);
+        return $this->createDateTime($format, $dateString, $timezone);
     }
 
     public function dateTimeToMysqlDateString(DateTime $dateTime) {
@@ -93,7 +99,6 @@ class PhpDateUtils {
      */
     public function localDateStringToUtcMysqlDateString($dateString) {
         $localDateTime = self::localDateStringToDateTime($dateString);
-        if (!$localDateTime) throw new InvalidArgumentException('Invalid Date string input');
         $utcDateTime   = self::localDateTimeToUtcDateTime($localDateTime);
         return self::dateTimeToMysqlDateString($utcDateTime);
     }

@@ -79,12 +79,24 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
      * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage Invalid Date string input
      */
-    function testInvalidInputDateString() {
+    function testInvalidLocalDateStringToDateTime() {
         $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
 
         $invalidLocalDateString = '2014/01/01 14:12';
 
-        $utils->localDateStringToUtcMysqlDateString($invalidLocalDateString);
+        $utils->localDateStringToDateTime($invalidLocalDateString);
+    }
+
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage Invalid Date string input
+     */
+    function testInvalidMysqlUtcDateStringToDateTime() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $invalidMysqlDateString = '2014/01/01 14:12';
+
+        $utils->mysqlUtcDateStringToDateTime($invalidMysqlDateString);
     }
 
 }
