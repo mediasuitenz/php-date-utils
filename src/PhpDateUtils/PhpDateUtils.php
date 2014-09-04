@@ -92,4 +92,14 @@ class PhpDateUtils {
         return self::dateTimeToMysqlDateString($utcDateTime);
     }
 
+    /**
+     * Takes a UTC MySQL formatted date string and converts it to a locally
+     * timezoned DateTime object.
+     * Uses $localTimeZone to determine locally.
+     */
+    public function utcMysqlDateStringToLocalDateTime($dateString) {
+        $utcDateTime = self::mysqlUtcDateStringToDateTime($dateString);
+        return self::utcDateTimeToLocalDateTime($utcDateTime);
+    }
+
 }
