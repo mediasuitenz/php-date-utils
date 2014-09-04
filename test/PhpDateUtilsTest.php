@@ -75,4 +75,16 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($actualLocalDate->getTimestamp(), $expectedLocalDate->getTimestamp());
     }
 
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage Invalid Date string input
+     */
+    function testInvalidInputDateString() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $invalidLocalDateString = '2014/01/01 14:12';
+
+        $utils->localDateStringToUtcMysqlDateString($invalidLocalDateString);
+    }
+
 }

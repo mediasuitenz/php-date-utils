@@ -91,6 +91,7 @@ class PhpDateUtils {
      */
     public function localDateStringToUtcMysqlDateString($dateString) {
         $localDateTime = self::localDateStringToDateTime($dateString);
+        if (!$localDateTime) throw new InvalidArgumentException('Invalid Date string input');
         $utcDateTime   = self::localDateTimeToUtcDateTime($localDateTime);
         return self::dateTimeToMysqlDateString($utcDateTime);
     }
