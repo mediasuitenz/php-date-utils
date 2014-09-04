@@ -75,4 +75,48 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($actualLocalDate->getTimestamp(), $expectedLocalDate->getTimestamp());
     }
 
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage Invalid Date string input
+     */
+    function testInvalidLocalDateStringToDateTime() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $invalidLocalDateString = '2014/01/01 14:12';
+
+        $utils->localDateStringToDateTime($invalidLocalDateString);
+    }
+
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage Invalid Date string input
+     */
+    function testInvalidMysqlUtcDateStringToDateTime() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $invalidMysqlDateString = '2014/01/01 14:12';
+
+        $utils->mysqlUtcDateStringToDateTime($invalidMysqlDateString);
+    }
+
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage Invalid Date string input
+     */
+    function testNullMysqlUtcDateStringToDateTime() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $utils->mysqlUtcDateStringToDateTime(null);
+    }
+
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage Invalid Date string input
+     */
+    function testBooleanMysqlUtcDateStringToDateTime() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $utils->mysqlUtcDateStringToDateTime(false);
+    }
+
 }

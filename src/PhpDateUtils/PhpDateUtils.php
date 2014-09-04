@@ -1,11 +1,16 @@
 <?php
 
 namespace PhpDateUtils;
+use DateTime;
+use DateTimeZone;
+use InvalidArgumentException;
 
 class PhpDateUtils {
 
     private $localTimeZone;
     private $localFormat;
+    const MYSQL_FORMAT = 'Y-m-d H:i:s';
+    const DB_TIMEZONE = 'UTC';
 
     function __construct($localTimeZone, $localFormat) {
         $this->localTimeZone = $localTimeZone;
@@ -13,41 +18,47 @@ class PhpDateUtils {
     }
 
     public function newUtcDateTime() {
-        return new \DateTime('now', new \DateTimeZone('UTC'));
+        return new DateTime('now', new DateTimeZone(self::DB_TIMEZONE));
     }
 
     public function newLocalDateTime() {
-        return new \DateTime('now', new \DateTimeZone($this->localTimeZone));
+        return new DateTime('now', new DateTimeZone($this->localTimeZone));
     }
 
-    public function localDateTimeToUtcDateTime(\DateTime $localDateTime) {
+    public function localDateTimeToUtcDateTime(DateTime $localDateTime) {
         $utcDateTime = clone $localDateTime;
-        $utcDateTime->setTimeZone(new \DateTimeZone('UTC'));
+        $utcDateTime->setTimeZone(new DateTimeZone(self::DB_TIMEZONE));
         return $utcDateTime;
     }
 
-    public function utcDateTimeToLocalDateTime(\DateTime $utcDateTime) {
+    public function utcDateTimeToLocalDateTime(DateTime $utcDateTime) {
         $localDateTime = clone $utcDateTime;
-        $localDateTime->setTimeZone(new \DateTimeZone($this->localTimeZone));
+        $localDateTime->setTimeZone(new DateTimeZone($this->localTimeZone));
         return $localDateTime;
     }
 
+    private function createDateTime($format, $dateString, $timezone) {
+        $dateTime = DateTime::createFromFormat($format, $dateString, $timezone);
+        if (!$dateTime) throw new InvalidArgumentException('Invalid Date string input');
+        return $dateTime;
+    }
+
     public function mysqlUtcDateStringToDateTime($dateString) {
-        $timezone = new \DateTimeZone('utc');
-        return \DateTime::createFromFormat('Y-m-d H:i:s', $dateString, $timezone);
+        $timezone = new DateTimeZone(self::DB_TIMEZONE);
+        return $this->createDateTime(self::MYSQL_FORMAT, $dateString, $timezone);
     }
 
     public function localDateStringToDateTime($dateString) {
-        $timezone = new \DateTimeZone($this->localTimeZone);
+        $timezone = new DateTimeZone($this->localTimeZone);
         $format = $this->localFormat;
-        return \DateTime::createFromFormat($format, $dateString, $timezone);
+        return $this->createDateTime($format, $dateString, $timezone);
     }
 
-    public function dateTimeToMysqlDateString(\DateTime $dateTime) {
+    public function dateTimeToMysqlDateString(DateTime $dateTime) {
         return $dateTime->format('Y-m-d H:i:s');
     }
 
-    public function dateTimeToLocalDateString(\DateTime $dateTime, $options = []) {
+    public function dateTimeToLocalDateString(DateTime $dateTime, $options = []) {
         $defaultOptions = [
             'format' => $this->localFormat,
         ];
