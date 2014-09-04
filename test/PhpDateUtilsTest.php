@@ -67,7 +67,8 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
         $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
 
         $localDateString = '2014 01 01 14 12';
-        $expectedLocalDate = new \DateTime($localDateString);
+        $tz = new \DateTimeZone('Pacific/Auckland');
+        $expectedLocalDate = \DateTime::createFromFormat('Y m d H i', $localDateString, $tz);
 
         $utcDateString = $utils->localDateStringToUtcMysqlDateString($localDateString);
         $actualLocalDate = $utils->utcMysqlDateStringToLocalDateTime($utcDateString);
