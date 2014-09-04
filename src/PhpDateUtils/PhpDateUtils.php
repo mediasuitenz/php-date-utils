@@ -9,6 +9,8 @@ class PhpDateUtils {
 
     private $localTimeZone;
     private $localFormat;
+    const MYSQL_FORMAT = 'Y-m-d H:i:s';
+    const DB_TIMEZONE = 'UTC';
 
     function __construct($localTimeZone, $localFormat) {
         $this->localTimeZone = $localTimeZone;
@@ -16,7 +18,7 @@ class PhpDateUtils {
     }
 
     public function newUtcDateTime() {
-        return new DateTime('now', new DateTimeZone('UTC'));
+        return new DateTime('now', new DateTimeZone(self::DB_TIMEZONE));
     }
 
     public function newLocalDateTime() {
@@ -25,7 +27,7 @@ class PhpDateUtils {
 
     public function localDateTimeToUtcDateTime(DateTime $localDateTime) {
         $utcDateTime = clone $localDateTime;
-        $utcDateTime->setTimeZone(new DateTimeZone('UTC'));
+        $utcDateTime->setTimeZone(new DateTimeZone(self::DB_TIMEZONE));
         return $utcDateTime;
     }
 
@@ -36,8 +38,8 @@ class PhpDateUtils {
     }
 
     public function mysqlUtcDateStringToDateTime($dateString) {
-        $timezone = new DateTimeZone('utc');
-        return DateTime::createFromFormat('Y-m-d H:i:s', $dateString, $timezone);
+        $timezone = new DateTimeZone(self::DB_TIMEZONE);
+        return DateTime::createFromFormat(self::MYSQL_FORMAT, $dateString, $timezone);
     }
 
     public function localDateStringToDateTime($dateString) {
