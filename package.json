@@ -1,0 +1,28 @@
+{
+  "name": "php-date-utils",
+  "version": "1.0.0",
+  "description": "DateTime utilities",
+  "main": "''",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/mediasuitenz/php-date-utils.git"
+  },
+  "keywords": [
+    "Date",
+    "Time",
+    "DateTime",
+    "php"
+  ],
+  "author": "digitalsadhu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mediasuitenz/php-date-utils/issues"
+  },
+  "homepage": "https://github.com/mediasuitenz/php-date-utils"
+}
