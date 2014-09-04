@@ -99,4 +99,24 @@ class PhpDateUtilsTest extends \PHPUnit_Framework_TestCase {
         $utils->mysqlUtcDateStringToDateTime($invalidMysqlDateString);
     }
 
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage Invalid Date string input
+     */
+    function testNullMysqlUtcDateStringToDateTime() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $utils->mysqlUtcDateStringToDateTime(null);
+    }
+
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage Invalid Date string input
+     */
+    function testBooleanMysqlUtcDateStringToDateTime() {
+        $utils = new PhpDateUtils('Pacific/Auckland', 'Y m d H i');
+
+        $utils->mysqlUtcDateStringToDateTime(false);
+    }
+
 }
